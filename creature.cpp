@@ -17,8 +17,8 @@ bool Creature::atExit(const Maze &maze) const {
 
 string Creature::solve(Maze &maze) {
     string path;
-    stack<string> stackPath;
     maze.markAsPath(row_, col_);
+
     if(atExit(maze)) {
         return path;
     }
@@ -45,15 +45,12 @@ string Creature::solve(Maze &maze) {
 
 string Creature::goNorth(Maze &maze) {
     string path;
-    //stack<string> stackPath;
     if(maze.isClear(row_ - 1, col_)) { // if clear to north
         maze.markAsPath(row_, col_);        // mark as path
         path += "N";
         soln_.push_back(path);
         row_--;                             // move north
         if(atExit(maze)) {                  // if at exit
-            path += "N";
-            soln_.push_back(path);
             maze.markAsPath(row_,col_);     // mark as path
         } else {                            // if wall or visited
             path = goNorth(maze);        // try north again
@@ -83,8 +80,6 @@ string Creature::goWest(Maze &maze) {
         soln_.push_back(path);
         col_--;
         if(atExit(maze)) {
-            path += "W";
-            soln_.push_back(path);
             maze.markAsPath(row_, col_);
         } else {
             path = goWest(maze);
@@ -114,8 +109,6 @@ string Creature::goEast(Maze &maze) {
         soln_.push_back(path);
         col_++;
         if(atExit(maze)) {
-            path += "E";
-            soln_.push_back(path);
             maze.markAsPath(row_, col_);
         } else {
             path = goEast(maze);
@@ -145,8 +138,6 @@ string Creature::goSouth(Maze &maze) {
         soln_.push_back(path);
         row_++;
         if(atExit(maze)) {
-            path += "S";
-            soln_.push_back(path);
             maze.markAsPath(row_, col_);
         } else {
             path = goSouth(maze);

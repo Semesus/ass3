@@ -16,7 +16,6 @@ public:
 private:
   int row_;
   int col_;
-  //stack<string> soln_;
   vector<string> soln_;
 
 public:
