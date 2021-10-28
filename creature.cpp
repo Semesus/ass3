@@ -1,8 +1,6 @@
 //
 //
-
 #include "creature.h"
-#include <stack>
 
 std::ostream &operator<<(std::ostream &out, const Creature &creature) {
     out << "C(" << creature.row_ << ", " << creature.col_ << ")" << endl;
@@ -33,10 +31,6 @@ string Creature::solve(Maze &maze) {
         }
     }
     path = "";
-    /*
-    while(!soln_.empty()) {
-        path += soln_.pop();
-    }*/
     for(int i = 0; i < soln_.size(); i++) {
         path += soln_.at(i);
     }
@@ -47,8 +41,7 @@ string Creature::goNorth(Maze &maze) {
     string path;
     if(maze.isClear(row_ - 1, col_)) { // if clear to north
         maze.markAsPath(row_, col_);        // mark as path
-        path += "N";
-        soln_.push_back(path);
+        soln_.push_back("N");               // add path to vector
         row_--;                             // move north
         if(atExit(maze)) {                  // if at exit
             maze.markAsPath(row_,col_);     // mark as path
@@ -60,7 +53,7 @@ string Creature::goNorth(Maze &maze) {
                     path = goEast(maze); // try east
                     if(path == "X") {
                         maze.markAsVisited(row_, col_); // mark as visited
-                        soln_.pop_back();
+                        soln_.pop_back();               // remove path from vector
                         row_++;                         // backtrack
                     }
                 }
@@ -76,8 +69,7 @@ string Creature::goWest(Maze &maze) {
     string path;
     if(maze.isClear(row_, col_ - 1)) {
         maze.markAsPath(row_, col_);
-        path += "W";
-        soln_.push_back(path);
+        soln_.push_back("W");
         col_--;
         if(atExit(maze)) {
             maze.markAsPath(row_, col_);
@@ -105,8 +97,7 @@ string Creature::goEast(Maze &maze) {
     string path;
     if(maze.isClear(row_, col_ + 1)) {
         maze.markAsPath(row_, col_);
-        path +="E";
-        soln_.push_back(path);
+        soln_.push_back("E");
         col_++;
         if(atExit(maze)) {
             maze.markAsPath(row_, col_);
@@ -134,8 +125,7 @@ string Creature::goSouth(Maze &maze) {
     string path;
     if(maze.isClear(row_ + 1, col_)) {
         maze.markAsPath(row_, col_);
-        path += "S";
-        soln_.push_back(path);
+        soln_.push_back("S");
         row_++;
         if(atExit(maze)) {
             maze.markAsPath(row_, col_);

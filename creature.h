@@ -6,7 +6,6 @@
 
 #include "maze.h"
 #include <ostream>
-#include <stack>
 #include <vector>
 
 class Creature {
