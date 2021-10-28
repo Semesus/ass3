@@ -6,6 +6,8 @@
 
 #include "maze.h"
 #include <ostream>
+#include <stack>
+#include <vector>
 
 class Creature {
 public:
@@ -14,6 +16,8 @@ public:
 private:
   int row_;
   int col_;
+  //stack<string> soln_;
+  vector<string> soln_;
 
 public:
   Creature(int row, int col);
