@@ -16,6 +16,20 @@ bool Creature::atExit(const Maze &maze) const {
 
 string Creature::solve(Maze &maze) {
   string path;
+  maze.markAsPath(row_, col_);
+  if(atExit(maze)) {
+      return path;
+  }
+  path = goNorth(maze);
+  if(path == "X") {
+      path = goSouth(maze);
+      if(path == "X") {
+          path = goWest(maze);
+          if(path == "X") {
+              path = goEast(maze);
+          }
+      }
+  }
   return path;
 }
 
@@ -47,14 +61,83 @@ string Creature::goNorth(Maze &maze) {
 }
 
 string Creature::goWest(Maze &maze) {
-
-  return "X";
+    string path;
+    if(maze.isClear(row_, col_ - 1)) {
+        maze.markAsPath(row_, col_);
+        col_--;
+        if(atExit(maze)) {
+            path += "W";
+            maze.markAsPath(row_, col_);
+        } else {
+            path = goWest(maze);
+            if(path == "X") {
+                path = goNorth(maze);
+                if(path == "X") {
+                    path = goSouth(maze);
+                    if(path == "X") {
+                        maze.markAsVisited(row_, col_);
+                        col_++;
+                    }
+                }
+            }
+        }
+    } else {
+        path = "X";
+    }
+  return path;
 }
 
 string Creature::goEast(Maze &maze) {
-  return "X";
+    string path;
+    if(maze.isClear(row_, col_ + 1)) {
+        maze.markAsPath(row_, col_);
+        col_++;
+        if(atExit(maze)) {
+            path += "E";
+            maze.markAsPath(row_, col_);
+        } else {
+            path = goEast(maze);
+            if(path == "X") {
+                path = goNorth(maze);
+                if(path == "X") {
+                    path = goSouth(maze);
+                    if(path == "X") {
+                        maze.markAsVisited(row_, col_);
+                        col_--;
+                    }
+                }
+            }
+        }
+    } else {
+        path = "X";
+    }
+    return path;
 }
 
 string Creature::goSouth(Maze &maze) {
-  return "X";
+    string path;
+    if(maze.isClear(row_ + 1, col_)) {
+        row_++;
+        maze.markAsPath(row_, col_);
+        if(atExit(maze)) {
+            path += "S";
+            maze.markAsPath(row_, col_);
+        } else {
+            path = goSouth(maze);
+            if(path == "X") {
+                path = goWest(maze);
+                if(path == "X") {
+                    path = goEast(maze);
+                    if(path == "X") {
+                        maze.markAsVisited(row_, col_);
+                        row_--;
+                    }
+                }
+            }
+        }
+    } else {
+        path = "X";
+    }
+
+  return path;
 }
