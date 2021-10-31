@@ -1,26 +1,34 @@
 #include <iostream>
 #include "creature.h"
 #include "maze.h"
+#include <cassert>
 
 void test() {
     Maze M("maze.txt");
     Creature C(4, 4);
-    cout << "Path: " << C.solve(M) << endl;
+    string path = C.solve(M);
+    cout << "Path: " << path << endl;
     cout << M << endl;
+    assert(path == "EEENNNEEEEEESEESSSEEENNNNN");
 }
 
 void test2() {
     Maze M("maze1.txt");
     Creature C(5, 18);
-    cout << "Path: " << C.solve(M) << endl;
+    string path = C.solve(M);
+    cout << "Path: " << path << endl;
     cout << M << endl;
+    assert(path == "WWWNNNWWNWWWWWWWWWWN");
+
 }
 
 void test3() {
     Maze M("maze2.txt");
     Creature C(4, 3);
-    cout << "Path: " << C.solve(M) << endl;
+    string path = C.solve(M);
+    cout << "Path: " << path << endl;
     cout << M << endl;
+    assert(path == "EEEENNNEEEEEESEESSSEEENNNNEEEEEEEEESSEENEEEEEEEESSSEEEEEEENNEEENEESSSEEEEEEEENNWWWWWWNNN");
 }
 
 void test4() {

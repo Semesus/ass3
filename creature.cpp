@@ -21,7 +21,7 @@
  * */
 std::ostream &operator<<(std::ostream &out, const Creature &creature) {
     out << "C(" << creature.row_ << ", " << creature.col_ << ")" << endl;
-  return out;
+    return out;
 } // operator<<
 
 /**
@@ -31,7 +31,6 @@ std::ostream &operator<<(std::ostream &out, const Creature &creature) {
  * @param col: Starting column position of creature
  * */
 Creature::Creature(int row, int col) : row_(row), col_(col) {}
-
 
 /**
  * Recursively solves maze and returns solution path
